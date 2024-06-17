@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ShippingMethod.init(
     {
-      shipping_id: {
+      shipping_method_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,

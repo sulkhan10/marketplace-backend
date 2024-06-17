@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       Store.hasOne(models.User, { foreignKey: "store_id", as: "user" });
       Store.hasMany(models.ProductCategory, { foreignKey: "product_category_id", as: "productCategory" });
       Store.hasMany(models.Product, { foreignKey: "product_id", as: "product" });
+      Store.hasMany(models.ReceiptDiscount, { foreignKey: "receipt_discount_id", as: "receipt_discount" });
     }
   }
 

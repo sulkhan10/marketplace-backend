@@ -43,7 +43,7 @@ class ShippingMethodController {
     try {
       const { method_name } = req.body;
       const [updated] = await ShippingMethod.update({ method_name }, {
-        where: { shipping_id: req.params.id }
+        where: { shipping_method_id: req.params.id }
       });
       if (updated) {
         const updatedShippingMethod = await ShippingMethod.findByPk(req.params.id);
@@ -60,7 +60,7 @@ class ShippingMethodController {
   static async deleteShippingMethod(req, res) {
     try {
       const deleted = await ShippingMethod.destroy({
-        where: { shipping_id: req.params.id }
+        where: { shipping_method_id: req.params.id }
       });
       if (deleted) {
         res.status(204).json();
