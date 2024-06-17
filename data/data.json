@@ -1,0 +1,43 @@
+{
+    "Users" : [
+        {
+            "username" : "admin123",
+            "password" : "123456"
+        },
+        {
+            "username" : "admin456",
+            "password" : "123456"
+        }
+    
+    ],
+    "Vendors" : [
+        {
+            "unitId" : "1",
+            "name" : "vendor 1",
+            "address" : "lippo"
+        },
+        {
+            "unitId" : "3",
+            "name" : "vendor 3",
+            "address" : "makassar"
+        },
+        {
+            "unitId" : "2",
+            "name" : "vendor 2",
+            "address" : "bogor"
+        }
+    
+    ],
+    "Units" : [
+        {
+            "name" : "Siloam Lippo Vilage"
+        },
+        {
+            "name" : "Siloam Bogor"
+        },
+        {
+            "name" : "Siloam Makassar"
+        }
+    
+    ]
+}
