@@ -9,6 +9,8 @@ class UserController {
     try {
       let { username, password } = req.body;
       let user = await User.findOne({ where: { username } });
+      // console.log(user.username);
+      // console.log(user.user_id);
 
       if (!username || !password) {
         throw { name: "EmailOrPasswordRequired" };
@@ -23,7 +25,7 @@ class UserController {
         throw { name: "InvalidCredentials" };
       }
       let payload = {
-        id: user.id,
+        id: user.user_id,
         username: user.username,
       };
       let token = generateToken(payload);

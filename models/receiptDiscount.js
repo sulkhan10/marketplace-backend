@@ -33,11 +33,11 @@ module.exports = (sequelize, DataTypes) => {
       end_date: {
         type: DataTypes.DATEONLY,
       },
-      created_at: {
+      createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
-      updated_at: {
+      updatedAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'ReceiptDiscount',
       tableName: 'ReceiptDiscounts',
-      underscored: true,
+      // underscored: true,
     }
   );
   return ReceiptDiscount;

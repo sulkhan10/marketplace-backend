@@ -30,12 +30,12 @@ module.exports = {
       end_date: {
         type: Sequelize.DATEONLY, // DATEONLY for date without time
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),

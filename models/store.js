@@ -4,12 +4,12 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Store extends Model {
     static associate(models) {
-      Store.hasOne(models.User, { foreignKey: "store_id", as: "user" });
-      Store.hasOne(models.ProductDiscount, { foreignKey: "product_discount_id", as: "product_discount" });
+      // Store.hasOne(models.User, { foreignKey: "store_id", as: "user" });
+      Store.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
+      Store.hasMany(models.ProductDiscount, { foreignKey: "store_id", as: "productDiscount" });
       Store.hasMany(models.ProductCategory, { foreignKey: "product_category_id", as: "productCategory" });
       Store.hasMany(models.Product, { foreignKey: "product_id", as: "product" });
-      Store.hasMany(models.ReceiptDiscount, { foreignKey: "receipt_discount_id", as: "receipt_discount" });
-      // Store.hasMany(models.ProductDiscount, { foreignKey: "product_discount_id", as: "product_discount" });
+      Store.hasMany(models.ReceiptDiscount, { foreignKey: "receipt_discount_id", as: "receiptDiscount" });
     }
   }
 
@@ -19,6 +19,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        unique: true,
+        references: {
+          model: 'Users',  // 'Stores' refers to table name
+          key: 'user_id',
+        },
       },
       store_name: {
         type: DataTypes.STRING,
@@ -40,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Store",
+      tableName: "Stores",
       timestamps: false,
     }
   );

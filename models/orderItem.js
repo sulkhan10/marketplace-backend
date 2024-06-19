@@ -45,12 +45,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    created_at: {
+    createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    updated_at: {
+    updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'OrderItem',
     tableName: 'OrderItems',
-    underscored: true,
+    // underscored: true,
     timestamps: true,
   });
   return OrderItem;

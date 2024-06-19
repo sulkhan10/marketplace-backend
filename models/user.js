@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsTo(models.Store, { foreignKey: "store_id", as: "store" });
+      // User.belongsTo(models.Store, { foreignKey: "store_id", as: "store" });
+      User.hasOne(models.Store, { foreignKey: "user_id", as: "store" });
       User.belongsTo(models.BankAccount, { foreignKey: "bank_account_id", as: "bankAccount" });
     }
   }
@@ -23,14 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      store_id: {
-        type: DataTypes.INTEGER,
-        unique: true,
-        references: {
-          model: 'Stores',  // 'Stores' refers to table name
-          key: 'store_id',
-        },
-      },
+    
       username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -61,10 +55,6 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      created_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-      },
       first_name: {
         type: DataTypes.STRING,
       },
@@ -93,12 +83,21 @@ module.exports = (sequelize, DataTypes) => {
           key: 'bank_account_id',
         },
       },
+      createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
     },
     {
       sequelize,
       modelName: "User",
-      timestamps: false,  // If you're not using timestamps
-      underscored: true,  // To convert camelCase to snake_case
+      tableName: 'Users',  // Ensure 'Users' is capitalized
+      timestamps: true,
+      // underscored: true,  // To convert camelCase to snake_case
     }
   );
 

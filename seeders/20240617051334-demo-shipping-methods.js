@@ -5,18 +5,18 @@ module.exports = {
     await queryInterface.bulkInsert('ShippingMethods', [
       {
         method_name: 'Standard Shipping',
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         method_name: 'Express Shipping',
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         method_name: 'Next Day Delivery',
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ]);
   },

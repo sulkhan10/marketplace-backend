@@ -14,8 +14,8 @@ module.exports = {
         price: 19.99,
         stock_quantity: 50,
         product_category_id: 1,  // Ensure this product_category_id exists in your ProductCategories table
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         store_id: 1,  // Ensure this store_id exists in your Stores table
@@ -28,8 +28,8 @@ module.exports = {
         price: 29.99,
         stock_quantity: 30,
         product_category_id: 1,  // Ensure this product_category_id exists in your ProductCategories table
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ]);
   },

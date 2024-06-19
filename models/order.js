@@ -55,11 +55,11 @@ module.exports = (sequelize, DataTypes) => {
       shipping_method_id: {
         type: DataTypes.INTEGER,
       },
-      created_at: {
+      createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
-      updated_at: {
+      updatedAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
@@ -68,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'Order',
       tableName: 'Orders',
-      underscored: true,
+      // underscored: true,
     }
   );
   return Order;

@@ -9,6 +9,7 @@ module.exports = {
         city: 'Townsville',
         postal_code: '12345',
         country: 'Country A',
+        user_id : 2
       },
       {
         store_name: 'Store B',
@@ -16,6 +17,7 @@ module.exports = {
         city: 'Villagetown',
         postal_code: '67890',
         country: 'Country B',
+        user_id : 1
       },
       // Add more stores as needed
     ], {});

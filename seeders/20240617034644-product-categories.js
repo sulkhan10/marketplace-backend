@@ -6,14 +6,14 @@ module.exports = {
       {
         store_id: 1,  // Ensure this store_id exists in your Stores table
         product_category_name: 'Electronics',
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         store_id: 1,  // Ensure this store_id exists in your Stores table
         product_category_name: 'Books',
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ]);
   },

@@ -9,15 +9,6 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      store_id: {
-        type: Sequelize.INTEGER,
-        unique: true,
-        references: {
-          model: 'Stores',
-          key: 'store_id',
-        },
-        onDelete: 'CASCADE',
-      },
       username: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -27,7 +18,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      created_at: {
+      createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+      },
+      updatedAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },

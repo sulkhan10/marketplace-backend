@@ -5,18 +5,18 @@ module.exports = {
     await queryInterface.bulkInsert('PaymentMethods', [
       {
         method_name: 'Credit Card',
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         method_name: 'PayPal',
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         method_name: 'Bank Transfer',
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ]);
   },

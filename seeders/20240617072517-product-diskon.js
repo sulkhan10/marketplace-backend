@@ -13,8 +13,8 @@ module.exports = {
         quota: 100, // Example quota
         start_date: new Date('2024-07-01'), // Example start date
         end_date: new Date('2024-12-31'), // Example end date
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       // Add more data as needed
     ];

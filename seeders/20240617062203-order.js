@@ -16,8 +16,8 @@ module.exports = {
         receipt_discount_id: 1,
         payment_method_id: 1,
         shipping_method_id: 1,
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       // Add more data as needed
     ];

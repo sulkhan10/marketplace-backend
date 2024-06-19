@@ -25,6 +25,14 @@ module.exports = {
       country: {
         type: Sequelize.STRING,
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        unique: true,
+        references: {
+          model: 'Users',
+          key: 'user_id',
+        },
+      },
     });
   },
 
