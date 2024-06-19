@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
       Order.belongsTo(models.ReceiptDiscount, { foreignKey: 'receipt_discount_id' , as : "receipt_discount"});
       Order.belongsTo(models.PaymentMethod, { foreignKey: 'payment_method_id' , as : "payment_method"});
       Order.belongsTo(models.ShippingMethod, { foreignKey: 'shipping_method_id' , as : "shipping_method"});
+      Order.hasMany(models.OrderItem, {
+        foreignKey: 'order_id',
+        as: 'order_item',
+      });
     }
   }
   Order.init(

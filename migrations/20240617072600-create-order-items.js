@@ -2,19 +2,19 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('ProductDiscounts', {
-      receipt_discount_id: {
+    await queryInterface.createTable('OrderItems', {
+      order_item_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      store_id: {
+      order_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Stores',
-          key: 'store_id',
+          model: 'Orders',
+          key: 'order_id',
         },
       },
       product_id: {
@@ -25,17 +25,13 @@ module.exports = {
           key: 'product_id',
         },
       },
-      discount_rate: {
-        type: Sequelize.FLOAT,
-      },
-      quota: {
+      quantity: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
-      start_date: {
-        type: Sequelize.DATEONLY, // DATEONLY for date without time
-      },
-      end_date: {
-        type: Sequelize.DATEONLY, // DATEONLY for date without time
+      price: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
       },
       created_at: {
         allowNull: false,
@@ -51,6 +47,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('ProductDiscounts');
+    await queryInterface.dropTable('OrderItems');
   }
 };
