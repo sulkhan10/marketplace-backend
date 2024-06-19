@@ -10,6 +10,7 @@ const paymentMethod = require('../routes/paymentMethod')
 const shippingMethod = require('../routes/shippingMethod')
 const product = require('../routes/product')
 const receiptDiscount = require('../routes/receiptDiscount')
+const productDiscount = require('../routes/productDiscount')
 
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)
@@ -22,5 +23,6 @@ router.use(product)
 router.use(shippingMethod)
 router.use(receiptDiscount)
 router.use(productCategory)
+router.use(productDiscount)
 
 module.exports = router

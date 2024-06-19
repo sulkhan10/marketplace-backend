@@ -15,8 +15,7 @@ module.exports = {
           model: 'Stores',
           key: 'store_id',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+         
       },
       user_id: {
         type: Sequelize.INTEGER,
@@ -24,8 +23,7 @@ module.exports = {
           model: 'Users',
           key: 'user_id',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+         
       },
       total_price: {
         type: Sequelize.FLOAT,
@@ -48,8 +46,6 @@ module.exports = {
           model: 'ReceiptDiscounts',
           key: 'receipt_discount_id',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
       payment_method_id: {
         type: Sequelize.INTEGER,
@@ -57,8 +53,6 @@ module.exports = {
           model: 'PaymentMethods',
           key: 'payment_method_id',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
       shipping_method_id: {
         type: Sequelize.INTEGER,
@@ -66,8 +60,7 @@ module.exports = {
           model: 'ShippingMethods',
           key: 'shipping_method_id',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+         
       },
       created_at: {
         allowNull: false,

@@ -5,9 +5,11 @@ module.exports = (sequelize, DataTypes) => {
   class Store extends Model {
     static associate(models) {
       Store.hasOne(models.User, { foreignKey: "store_id", as: "user" });
+      Store.hasOne(models.ProductDiscount, { foreignKey: "product_discount_id", as: "product_discount" });
       Store.hasMany(models.ProductCategory, { foreignKey: "product_category_id", as: "productCategory" });
       Store.hasMany(models.Product, { foreignKey: "product_id", as: "product" });
       Store.hasMany(models.ReceiptDiscount, { foreignKey: "receipt_discount_id", as: "receipt_discount" });
+      Store.hasMany(models.ProductDiscount, { foreignKey: "product_discount_id", as: "product_discount" });
     }
   }
 

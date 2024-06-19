@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('ReceiptDiscounts', {
+    await queryInterface.createTable('ProductDiscounts', {
       receipt_discount_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -16,7 +16,14 @@ module.exports = {
           model: 'Stores',
           key: 'store_id',
         },
-         
+      },
+      product_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Products',
+          key: 'product_id',
+        },
       },
       discount_rate: {
         type: Sequelize.FLOAT,
@@ -44,6 +51,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('ReceiptDiscounts');
+    await queryInterface.dropTable('ProductDiscounts');
   }
 };
