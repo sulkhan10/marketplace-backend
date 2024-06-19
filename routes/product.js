@@ -1,23 +1,23 @@
-const ProductController = require('../controllers/ProductController')
-const authentication = require('../middlewares/authentication')
+const express = require('express');
+const router = express.Router();
+const ProductController = require('../controllers/ProductController');
+const authentication = require('../middlewares/authentication');
 
-const router = require('express').Router()
+router.use(authentication);
 
-router.use(authentication)
+// Get all products for a specific store
+router.get('/stores/:store_id/products', ProductController.getAllProducts);
 
-// Get all products
-router.get('/product', ProductController.getAllProducts);
+// Get a single product by ID for a specific store
+router.get('/stores/:store_id/products/:id', ProductController.getProductById);
 
-// Get a single product by ID
-router.get('/product/:id', ProductController.getProductById);
+// Create a new product for a specific store
+router.post('/stores/:store_id/products', ProductController.createProduct);
 
-// Create a new product
-router.post('/product/', ProductController.createProduct);
+// Update an existing product by ID for a specific store
+router.put('/stores/:store_id/products/:id', ProductController.updateProduct);
 
-// Update an existing product by ID
-router.put('/product/:id', ProductController.updateProduct);
+// Delete a product by ID for a specific store
+router.delete('/stores/:store_id/products/:id', ProductController.deleteProduct);
 
-// Delete a product by ID
-router.delete('/product/:id', ProductController.deleteProduct);
-
-module.exports = router
+module.exports = router;
