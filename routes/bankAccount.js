@@ -5,7 +5,7 @@ const router = require('express').Router();
 
 router.use(authentication);
 router.post('/bankAccount', BankAccountController.createBankAccount);
-router.put('/bankAccount', BankAccountController.updateBankAccount);
+router.put('/bankAccount/:bankAccountId', BankAccountController.updateBankAccount);
 router.delete('/bankAccount/:bankAccountId', BankAccountController.deleteBankAccount);
 router.get('/bankAccount/:bankAccountId', BankAccountController.readBankAccountByBankAccountId);
 router.get('/bankAccount', BankAccountController.readAllBankAccount);

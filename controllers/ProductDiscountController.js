@@ -2,75 +2,93 @@
 
 const { ProductDiscount } = require('../models');
 
-module.exports = {
-  async getAllProductDiscounts(req, res) {
+class ProductDiscountController {
+  static async getAllProductDiscounts(req, res, next) {
     try {
       const productDiscounts = await ProductDiscount.findAll();
       res.status(200).json(productDiscounts);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
-  },
+  }
 
-  async getProductDiscountById(req, res) {
+  static async getProductDiscountById(req, res, next) {
     try {
       const productDiscount = await ProductDiscount.findByPk(req.params.id);
       if (productDiscount) {
         res.status(200).json(productDiscount);
       } else {
-        res.status(404).json({ error: 'Product discount not found' });
+        next({ name: 'NotFound' });
       }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
-  },
+  }
 
-  async createProductDiscount(req, res) {
+  static async getProductDiscountsByStoreId(req, res, next) {
     try {
-      const { store_id, discount_rate, quota, start_date, end_date } = req.body;
+      const productDiscounts = await ProductDiscount.findAll({
+        where: { store_id: req.params.storeId },
+      });
+      if (productDiscounts.length > 0) {
+        res.status(200).json(productDiscounts);
+      } else {
+        next({ name: 'NotFound' });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async createProductDiscount(req, res, next) {
+    try {
+      const { store_id, discount_rate, quota, start_date, end_date,product_id } = req.body;
       const productDiscount = await ProductDiscount.create({
         store_id,
         discount_rate,
         quota,
         start_date,
         end_date,
+        product_id
       });
       res.status(201).json(productDiscount);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
-  },
+  }
 
-  async updateProductDiscount(req, res) {
+  static async updateProductDiscount(req, res, next) {
     try {
-      const { store_id, discount_rate, quota, start_date, end_date } = req.body;
+      const { store_id, discount_rate, quota, start_date, end_date,product_id } = req.body;
       const [updated] = await ProductDiscount.update(
-        { store_id, discount_rate, quota, start_date, end_date },
+        { store_id, discount_rate, quota, start_date, end_date,product_id },
         { where: { product_discount_id: req.params.id } }
       );
       if (updated) {
         const updatedProductDiscount = await ProductDiscount.findByPk(req.params.id);
         res.status(200).json(updatedProductDiscount);
       } else {
-        res.status(404).json({ error: 'Product discount not found' });
+        next({ name: 'NotFound' });
       }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
-  },
+  }
 
-  async deleteProductDiscount(req, res) {
+  static async deleteProductDiscount(req, res, next) {
     try {
       const deleted = await ProductDiscount.destroy({
-        where: { product_discount_id: req.params.id }
+        where: { product_discount_id: req.params.id },
       });
       if (deleted) {
         res.status(204).json();
       } else {
-        res.status(404).json({ error: 'Product discount not found' });
+        next({ name: 'NotFound' });
       }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
-  },
-};
+  }
+}
+
+module.exports = ProductDiscountController;

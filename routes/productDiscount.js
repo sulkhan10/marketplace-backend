@@ -1,14 +1,16 @@
-const ProductDiscountController = require('../controllers/ProductDiscountController')
-const authentication = require('../middlewares/authentication')
+const express = require('express');
+const ProductDiscountController = require('../controllers/ProductDiscountController');
+const authentication = require('../middlewares/authentication');
 
-const router = require('express').Router()
+const router = express.Router();
 
-router.use(authentication)
+router.use(authentication);
 
-router.get('/receiptDiscounts', ProductDiscountController.getAllProductDiscounts);
-router.get('/receiptDiscounts/:id', ProductDiscountController.getProductDiscountById);
-router.post('/receiptDiscounts', ProductDiscountController.createProductDiscount);
-router.put('/receiptDiscounts/:id', ProductDiscountController.updateProductDiscount);
-router.delete('/receiptDiscounts/:id', ProductDiscountController.deleteProductDiscount);
+router.get('/productDiscount', ProductDiscountController.getAllProductDiscounts);
+router.get('/productDiscount/:id', ProductDiscountController.getProductDiscountById);
+router.get('/productDiscounts/store/:storeId', ProductDiscountController.getProductDiscountsByStoreId);
+router.post('/productDiscount', ProductDiscountController.createProductDiscount);
+router.put('/productDiscount/:id', ProductDiscountController.updateProductDiscount);
+router.delete('/productDiscount/:id', ProductDiscountController.deleteProductDiscount);
 
-module.exports = router
+module.exports = router;

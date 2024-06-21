@@ -79,9 +79,10 @@ class BankAccountController {
 
   static async updateBankAccount(req, res, next) {
     try {
-      const { bank_account_id, bank_name, account_number, account_holder_name } = req.body;
+      const { bankAccountId } = req.params;
+      const { bank_name, account_number, account_holder_name } = req.body;
       const bankAccount = await BankAccount.findOne({
-        where: { bank_account_id },
+        where: { bank_account_id :  bankAccountId},
       });
 
       if (bankAccount) {
