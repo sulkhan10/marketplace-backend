@@ -4,17 +4,17 @@ const { ShippingMethod } = require('../models');
 
 class ShippingMethodController {
   // Get all shipping methods
-  static async getAllShippingMethods(req, res) {
+  static async getAllShippingMethods(req, res, next) {
     try {
       const shippingMethods = await ShippingMethod.findAll();
       res.status(200).json(shippingMethods);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 
   // Get a single shipping method by ID
-  static async getShippingMethodById(req, res) {
+  static async getShippingMethodById(req, res, next) {
     try {
       const shippingMethod = await ShippingMethod.findByPk(req.params.id);
       if (shippingMethod) {
@@ -23,23 +23,23 @@ class ShippingMethodController {
         res.status(404).json({ error: 'Shipping method not found' });
       }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 
   // Create a new shipping method
-  static async createShippingMethod(req, res) {
+  static async createShippingMethod(req, res, next) {
     try {
       const { method_name } = req.body;
       const shippingMethod = await ShippingMethod.create({ method_name });
       res.status(201).json(shippingMethod);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 
   // Update an existing shipping method by ID
-  static async updateShippingMethod(req, res) {
+  static async updateShippingMethod(req, res, next) {
     try {
       const { method_name } = req.body;
       const [updated] = await ShippingMethod.update({ method_name }, {
@@ -52,12 +52,12 @@ class ShippingMethodController {
         res.status(404).json({ error: 'Shipping method not found' });
       }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 
   // Delete a shipping method by ID
-  static async deleteShippingMethod(req, res) {
+  static async deleteShippingMethod(req, res, next) {
     try {
       const deleted = await ShippingMethod.destroy({
         where: { shipping_method_id: req.params.id }
@@ -68,7 +68,7 @@ class ShippingMethodController {
         res.status(404).json({ error: 'Shipping method not found' });
       }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 }
