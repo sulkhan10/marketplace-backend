@@ -1,50 +1,48 @@
 'use strict';
 
-const { Product,ProductDiscount,ProductCategory } = require('../models');
+const { Product, ProductDiscount, ProductCategory } = require('../models');
 
 class ProductController {
   // Get all products for a specific store
-  static async getAllProducts(req, res) {
+  static async getAllProducts(req, res, next) {
     try {
       const { store_id } = req.params;
-      const products = await Product.findAll({ where: { store_id },include: [
-          { model: ProductCategory, as: "productCategory" },
-          {
-            model: ProductDiscount,
-            as: "productDiscount",
-          },
-        ], });
+      const products = await Product.findAll({
+        where: { store_id },
+        include: [
+          { model: ProductCategory, as: 'productCategory' },
+          { model: ProductDiscount, as: 'productDiscount' },
+        ],
+      });
       res.status(200).json(products);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 
   // Get a single product by ID for a specific store
-  static async getProductById(req, res) {
+  static async getProductById(req, res, next) {
     try {
       const { store_id, id } = req.params;
-      const product = await Product.findOne({ where: { store_id, product_id: id } ,
+      const product = await Product.findOne({
+        where: { store_id, product_id: id },
         include: [
-          { model: ProductCategory, as: "productCategory" },
-          {
-            model: ProductDiscount,
-            as: "productDiscount",
-          },
+          { model: ProductCategory, as: 'productCategory' },
+          { model: ProductDiscount, as: 'productDiscount' },
         ],
       });
       if (product) {
         res.status(200).json(product);
       } else {
-        res.status(404).json({ error: 'Product not found' });
+        next({ name: 'NotFound' });
       }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 
   // Create a new product for a specific store
-  static async createProduct(req, res) {
+  static async createProduct(req, res, next) {
     try {
       const { store_id } = req.params;
       const {
@@ -56,7 +54,7 @@ class ProductController {
         height,
         price,
         stock_quantity,
-        product_category_id
+        product_category_id,
       } = req.body;
       const product = await Product.create({
         store_id,
@@ -68,16 +66,16 @@ class ProductController {
         height,
         price,
         stock_quantity,
-        product_category_id
+        product_category_id,
       });
       res.status(201).json(product);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 
   // Update an existing product by ID for a specific store
-  static async updateProduct(req, res) {
+  static async updateProduct(req, res, next) {
     try {
       const { store_id, id } = req.params;
       const {
@@ -89,7 +87,7 @@ class ProductController {
         height,
         price,
         stock_quantity,
-        product_category_id
+        product_category_id,
       } = req.body;
       const [updated] = await Product.update(
         {
@@ -101,37 +99,37 @@ class ProductController {
           height,
           price,
           stock_quantity,
-          product_category_id
+          product_category_id,
         },
         {
-          where: { store_id, product_id: id }
+          where: { store_id, product_id: id },
         }
       );
       if (updated) {
         const updatedProduct = await Product.findOne({ where: { store_id, product_id: id } });
         res.status(200).json(updatedProduct);
       } else {
-        res.status(404).json({ error: 'Product not found' });
+        next({ name: 'NotFound' });
       }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 
   // Delete a product by ID for a specific store
-  static async deleteProduct(req, res) {
+  static async deleteProduct(req, res, next) {
     try {
       const { store_id, id } = req.params;
       const deleted = await Product.destroy({
-        where: { store_id, product_id: id }
+        where: { store_id, product_id: id },
       });
       if (deleted) {
         res.status(204).json();
       } else {
-        res.status(404).json({ error: 'Product not found' });
+        next({ name: 'NotFound' });
       }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 }

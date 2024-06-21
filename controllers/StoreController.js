@@ -9,21 +9,21 @@ const {
 } = require("../models");
 
 class StoreController {
-  // Get all stores
   static async getAllStores(req, res, next) {
     try {
       const stores = await Store.findAll({
         include: [
-          { model: User, as: "user", attributes: { exclude: ["password","bank_account_id","role"] } },
+          {
+            model: User,
+            as: "user",
+            attributes: { exclude: ["password", "bank_account_id", "role"] },
+          },
           {
             model: Product,
             as: "product",
             include: [
               { model: ProductCategory, as: "productCategory" },
-              {
-                model: ProductDiscount,
-                as: "productDiscount",
-              },
+              { model: ProductDiscount, as: "productDiscount" },
             ],
           },
           { model: ReceiptDiscount, as: "receiptDiscount" },
@@ -36,29 +36,29 @@ class StoreController {
     }
   }
 
-  // Get a single store by ID
   static async getStoreById(req, res, next) {
     try {
       const { id } = req.params;
       const store = await Store.findByPk(id, {
-      include: [
-          { model: User, as: "user", attributes: { exclude: ["password","bank_account_id","role"] } },
+        include: [
+          {
+            model: User,
+            as: "user",
+            attributes: { exclude: ["password", "bank_account_id", "role"] },
+          },
           {
             model: Product,
             as: "product",
             include: [
               { model: ProductCategory, as: "productCategory" },
-              {
-                model: ProductDiscount,
-                as: "productDiscount",
-              },
+              { model: ProductDiscount, as: "productDiscount" },
             ],
           },
           { model: ReceiptDiscount, as: "receiptDiscount" },
         ],
       });
       if (!store) {
-        return res.status(404).json({ message: "Store not found" });
+        return next({ name: "NotFound" });
       }
       res.status(200).json(store);
     } catch (error) {
@@ -66,17 +66,17 @@ class StoreController {
     }
   }
 
-  // Create a new store
   static async createStore(req, res, next) {
     try {
-      const { store_name, address, city, postal_code, country, user_id } = req.body;
+      const { store_name, address, city, postal_code, country, user_id } =
+        req.body;
       const newStore = await Store.create({
         store_name,
         address,
         city,
         postal_code,
         country,
-        user_id
+        user_id,
       });
       res.status(201).json(newStore);
     } catch (error) {
@@ -84,7 +84,6 @@ class StoreController {
     }
   }
 
-  // Update an existing store by ID
   static async updateStore(req, res, next) {
     try {
       const { id } = req.params;
@@ -96,7 +95,7 @@ class StoreController {
         }
       );
       if (!updated) {
-        return res.status(404).json({ message: "Store not found" });
+        return next({ name: "NotFound" });
       }
       const updatedStore = await Store.findByPk(id);
       res.status(200).json(updatedStore);
@@ -105,13 +104,12 @@ class StoreController {
     }
   }
 
-  // Delete a store by ID
   static async deleteStore(req, res, next) {
     try {
       const { id } = req.params;
       const deleted = await Store.destroy({ where: { store_id: id } });
       if (!deleted) {
-        return res.status(404).json({ message: "Store not found" });
+        return next({ name: "NotFound" });
       }
       res.status(204).send();
     } catch (error) {

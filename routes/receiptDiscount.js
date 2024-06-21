@@ -1,14 +1,14 @@
-const ReceiptDiscountController = require('../controllers/ReceiptDiscountController')
-const authentication = require('../middlewares/authentication')
+const ReceiptDiscountController = require('../controllers/ReceiptDiscountController');
+const authentication = require('../middlewares/authentication');
 
-const router = require('express').Router()
+const router = require('express').Router();
 
-router.use(authentication)
+router.use(authentication);
+router.post('/receiptDiscount', ReceiptDiscountController.createReceiptDiscount);
+router.put('/receiptDiscount/:id', ReceiptDiscountController.updateReceiptDiscount);
+router.delete('/receiptDiscount/:id', ReceiptDiscountController.deleteReceiptDiscount);
+router.get('/receiptDiscount/:id', ReceiptDiscountController.getReceiptDiscountById);
+router.get('/receiptDiscount', ReceiptDiscountController.getAllReceiptDiscounts);
+router.get('/receiptDiscounts/store/:storeId', ReceiptDiscountController.getReceiptDiscountsByStoreId);
 
-router.get('/receiptDiscounts', ReceiptDiscountController.getAllReceiptDiscounts);
-router.get('/receiptDiscounts/:id', ReceiptDiscountController.getReceiptDiscountById);
-router.post('/receiptDiscounts', ReceiptDiscountController.createReceiptDiscount);
-router.put('/receiptDiscounts/:id', ReceiptDiscountController.updateReceiptDiscount);
-router.delete('/receiptDiscounts/:id', ReceiptDiscountController.deleteReceiptDiscount);
-
-module.exports = router
+module.exports = router;

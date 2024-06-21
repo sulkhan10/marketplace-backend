@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       // User.belongsTo(models.Store, { foreignKey: "store_id", as: "store" });
       User.hasOne(models.Store, { foreignKey: "user_id", as: "store" });
-      User.belongsTo(models.BankAccount, { foreignKey: "bank_account_id", as: "bankAccount" });
+      User.hasMany(models.BankAccount, { foreignKey: "user_id" , as : "bankAccount"});
     }
   }
 
@@ -76,13 +76,7 @@ module.exports = (sequelize, DataTypes) => {
       phone: {
         type: DataTypes.STRING,
       },
-      bank_account_id: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'BankAccounts',  // 'BankAccounts' refers to table name
-          key: 'bank_account_id',
-        },
-      },
+    
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,

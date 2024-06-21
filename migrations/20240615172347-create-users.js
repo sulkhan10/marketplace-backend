@@ -42,14 +42,7 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
       },
-      bank_account_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'BankAccounts',
-          key: 'bank_account_id',
-        },
-        onDelete: 'CASCADE',
-      },
+     
     });
   },
 

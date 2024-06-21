@@ -4,7 +4,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class BankAccount extends Model {
     static associate(models) {
-      BankAccount.hasMany(models.User, { foreignKey: "user_id", as: "user" });
+      BankAccount.belongsTo(models.User, { foreignKey: "user_id" , as: "user"});
     }
   }
 
@@ -28,10 +28,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      user_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Users',  // 'BankAccounts' refers to table name
+          key: 'user_id',
+        },
+      },
     },
     {
       sequelize,
       modelName: "BankAccount",
+      tableName: "BankAccounts",
       timestamps: false,
     }
   );

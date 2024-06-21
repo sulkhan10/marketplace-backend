@@ -13,7 +13,6 @@ module.exports = {
         email: 'john.doe@example.com',
         role: 'admin',
         phone: '1234567890',
-        bank_account_id: 1,
         createdAt: new Date(),
       },
       {
@@ -24,7 +23,6 @@ module.exports = {
         email: 'jane.doe@example.com',
         role: 'user',
         phone: '0987654321',
-        bank_account_id: 2,
         createdAt: new Date(),
       }
     ];
