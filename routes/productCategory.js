@@ -5,19 +5,11 @@ const router = require('express').Router()
 
 router.use(authentication)
 
-// Get all product categories
-router.get('/productCategory', ProductCategoryController.getAllProductCategories);
-
-// Get a single product category by ID
+router.get('/productCategory/', ProductCategoryController.getAllProductCategories);
 router.get('/productCategory/:id', ProductCategoryController.getProductCategoryById);
-
-// Create a new product category
+router.get('/productCategories/store/:store_id', ProductCategoryController.getProductCategoriesByStoreId);
 router.post('/productCategory/', ProductCategoryController.createProductCategory);
-
-// Update an existing product category by ID
 router.put('/productCategory/:id', ProductCategoryController.updateProductCategory);
-
-// Delete a product category by ID
 router.delete('/productCategory/:id', ProductCategoryController.deleteProductCategory);
 
 module.exports = router
