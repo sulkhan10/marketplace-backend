@@ -1,7 +1,9 @@
+'use strict';
+
 const { OrderItem, Order, Product } = require('../models');
 
 class OrderItemController {
-  static async getAllOrderItems(req, res) {
+  static async getAllOrderItems(req, res, next) {
     try {
       const orderItems = await OrderItem.findAll({
         include: [
@@ -11,11 +13,11 @@ class OrderItemController {
       });
       res.status(200).json(orderItems);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  static async getOrderItemById(req, res) {
+  static async getOrderItemById(req, res, next) {
     try {
       const { id } = req.params;
       const orderItem = await OrderItem.findByPk(id, {
@@ -27,24 +29,58 @@ class OrderItemController {
       if (orderItem) {
         res.status(200).json(orderItem);
       } else {
-        res.status(404).json({ message: 'OrderItem not found' });
+        const error = new Error('OrderItem not found');
+        error.name = 'NotFound';
+        throw error;
       }
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  static async createOrderItem(req, res) {
+  static async getOrderItemsByOrderId(req, res, next) {
+    try {
+      const { order_id } = req.params;
+      const orderItems = await OrderItem.findAll({
+        where: { order_id },
+        include: [
+          { model: Order, as: 'order' },
+          { model: Product, as: 'product' }
+        ]
+      });
+      res.status(200).json(orderItems);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getOrderItemsByProductId(req, res, next) {
+    try {
+      const { product_id } = req.params;
+      const orderItems = await OrderItem.findAll({
+        where: { product_id },
+        include: [
+          { model: Order, as: 'order' },
+          { model: Product, as: 'product' }
+        ]
+      });
+      res.status(200).json(orderItems);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async createOrderItem(req, res, next) {
     try {
       const { order_id, product_id, quantity, price } = req.body;
       const newOrderItem = await OrderItem.create({ order_id, product_id, quantity, price });
       res.status(201).json(newOrderItem);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  static async updateOrderItem(req, res) {
+  static async updateOrderItem(req, res, next) {
     try {
       const { id } = req.params;
       const { order_id, product_id, quantity, price } = req.body;
@@ -55,14 +91,16 @@ class OrderItemController {
         const updatedOrderItem = await OrderItem.findByPk(id);
         res.status(200).json(updatedOrderItem);
       } else {
-        res.status(404).json({ message: 'OrderItem not found' });
+        const error = new Error('OrderItem not found');
+        error.name = 'NotFound';
+        throw error;
       }
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  static async deleteOrderItem(req, res) {
+  static async deleteOrderItem(req, res, next) {
     try {
       const { id } = req.params;
       const deleted = await OrderItem.destroy({
@@ -71,10 +109,12 @@ class OrderItemController {
       if (deleted) {
         res.status(204).send();
       } else {
-        res.status(404).json({ message: 'OrderItem not found' });
+        const error = new Error('OrderItem not found');
+        error.name = 'NotFound';
+        throw error;
       }
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 }
