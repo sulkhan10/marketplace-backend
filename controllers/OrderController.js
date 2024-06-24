@@ -1,6 +1,6 @@
 "use strict";
 
-const { Order, User, Store, OrderItem, Product } = require("../models");
+const { Order, User, Store, OrderItem, Product, ReceiptDiscount } = require("../models");
 const errorHandler = require("../middlewares/errorHandler"); // Adjust the path as needed
 
 class OrderController {
@@ -173,6 +173,82 @@ class OrderController {
         ],
       });
       res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async goToPayment(req, res, next) {
+    try {
+      const { id } = req.params;
+      const order = await Order.findByPk(id,{
+        include: [
+          {
+            model: User,
+            as: "user",
+            attributes: { exclude: ["password"] },
+          },
+          {
+            model: ReceiptDiscount,
+            as: "receiptDiscount",
+          },
+          {
+            model: OrderItem,
+            as: "orderItem",
+            include: [
+              {
+                model: Product,
+                as: "product",
+              },
+            ],
+          },
+          {
+            model: Store,
+            as: "store",
+          },
+        ],
+      });
+
+      // let receiptDiscount = await ReceiptDiscount.findByPk(order.receiptDiscount.receipt_discount_id)
+      // if (receiptDiscount) {
+      //   if (receiptDiscount.quota > 0) {
+      //     receiptDiscount.quota -= 1;
+      //     await receiptDiscount.save();
+      //   } else {
+      //     const error = new Error("Receipt discount quota exhausted");
+      //     error.name = "Forbidden";
+      //     throw error;
+      //   }
+      // }
+
+      let orderItem = order.orderItem
+
+      for (let index = 0; index < orderItem.length; index++) {
+        const element = orderItem[index];
+        console.log('====================================');
+        console.log(element);
+        console.log('====================================');
+        
+      }
+
+      // if (!order) {
+      //   const error = new Error("Order not found");
+      //   error.name = "NotFound";
+      //   throw error;
+      // }
+      // if (order.status !== 'CART') {
+      //   const error = new Error("Order is not in a cart state");
+      //   error.name = "Forbidden";
+      //   throw error;
+      // }
+      // order.status = 'PENDING';
+      // await order.save();
+      let tempOrder = {
+
+      }
+
+      // res.status(200).json(receiptDiscount);
+      // res.status(200).json(order);
     } catch (error) {
       next(error);
     }

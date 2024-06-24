@@ -1,17 +1,26 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     static associate(models) {
-      Order.belongsTo(models.Store, { foreignKey: 'store_id' , as : "store"});
-      Order.belongsTo(models.User, { foreignKey: 'user_id' , as : "user"});
-      Order.belongsTo(models.ReceiptDiscount, { foreignKey: 'receipt_discount_id' , as : "receipt_discount"});
-      Order.belongsTo(models.PaymentMethod, { foreignKey: 'payment_method_id' , as : "payment_method"});
-      Order.belongsTo(models.ShippingMethod, { foreignKey: 'shipping_method_id' , as : "shipping_method"});
+      Order.belongsTo(models.Store, { foreignKey: "store_id", as: "store" });
+      Order.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
+      Order.belongsTo(models.ReceiptDiscount, {
+        foreignKey: "receipt_discount_id",
+        as: "receiptDiscount",
+      });
+      Order.belongsTo(models.PaymentMethod, {
+        foreignKey: "payment_method_id",
+        as: "payment_method",
+      });
+      Order.belongsTo(models.ShippingMethod, {
+        foreignKey: "shipping_method_id",
+        as: "shipping_method",
+      });
       Order.hasMany(models.OrderItem, {
-        foreignKey: 'order_id',
-        as: 'orderItem',
+        foreignKey: "order_id",
+        as: "orderItem",
       });
     }
   }
@@ -63,11 +72,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
+     status: {
+        type: DataTypes.ENUM('CART', 'PENDING', 'PAID'),
+        allowNull: false,
+        defaultValue: 'CART'
+      },
     },
     {
       sequelize,
-      modelName: 'Order',
-      tableName: 'Orders',
+      modelName: "Order",
+      tableName: "Orders",
       // underscored: true,
     }
   );

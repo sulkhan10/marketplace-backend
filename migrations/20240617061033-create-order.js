@@ -40,6 +40,9 @@ module.exports = {
       order_date: {
         type: Sequelize.DATE, // Changed from TIMESTAMP to DATE
       },
+      status: {
+        type: Sequelize.INTEGER, 
+      },
       receipt_discount_id: {
         type: Sequelize.INTEGER,
         references: {
@@ -71,6 +74,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      status: {
+        type: Sequelize.ENUM('CART', 'PENDING', 'PAID'),
+        allowNull: false,
+        defaultValue: 'CART'
       },
     });
   },
